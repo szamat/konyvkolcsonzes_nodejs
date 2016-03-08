@@ -1,0 +1,126 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+      <meta charset="utf-8" />
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Könyvkölcsönzést nyílvántartó oldal</title>
+      <link rel="stylesheet" href="/css/style.css">
+      <link rel="stylesheet" href="/css/bootstrap.min.css">
+      <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+      <script src="/js/jquery.min.js"></script>
+      <script src="/js/bootstrap.min.js"></script>
+      <script src="/js/bootstrap-datepicker.js"></script>
+      <script src="/js/script.js"></script>
+      <script src="/js/knockout-latest.js"></script>
+  </head>
+  <body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+	  <div class="container">
+		  <div class="navbar-header">
+			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				  <span class="sr-only">Toggle navigation</span>
+				  <span class="icon-bar"></span>
+				  <span class="icon-bar"></span>
+				  <span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand" href="index.html
+			  ">Könyvkölcsönzés nyilvántartás</a>
+		  </div>
+		  <div id="navbar" class="navbar-collapse collapse">
+			  <ul class="nav navbar-nav">
+				  <li class="active"><a href="index.html">Kölcsönzés</a></li>
+				  <li><a href="konyvVissza.html">Könyv visszavétele</a></li>
+				  <li><a href="ujKonyv.html">Új könyv felvétele</a></li>
+				  <li><a href="konyvSzerk.html">Könyvek szerkesztése</a></li>
+			  </ul>
+		  </div>
+	  </div>
+  </nav>
+	<div class="row">
+		<div class="large-12 columns">
+			<h1>Kölcsönzés</h1>
+		</div>
+   </div>
+
+  <form class="form-horizontal">
+	  <div class="form-group">
+		  <label for="kolcsonzoNeve" class="col-sm-2 control-label">Kölcsönző neve</label>
+		  <div class="col-sm-5">
+			  <input name="kolcsonzoNeve" id="kolcsonzoNeve" type="text" class="form-control" placeholder="Minta Béla" />
+		  </div>
+	  </div>
+	  <div class="form-group">
+		  <label for="elerhetoseg" class="col-sm-2 control-label">Kölcsönző elérhetősége</label>
+		  <div class="col-sm-5">
+			  <input name="elerhetoseg" id="elerhetoseg" type="text" class="form-control" placeholder="hello@ittelersz.hu / +1231253423" />
+		  </div>
+	  </div>
+	  <div class="form-group">
+		  <label for="visszaDatum" class="col-sm-2 control-label">Visszahozatal ideje</label>
+		  <div class="col-md-5">
+			  <input name="visszaDatum" id="visszaDatum" class="form-control">
+		  </div>
+	  </div>
+      <div class="form-group">
+          <label for="valasztas" class="col-sm-2 control-label">Könyvek kiválasztása</label>
+          <div class="col-md-5">
+              <table id="valasztas" class="table table-striped">
+                  <thead>
+                  <tr>
+                      <th>Cím</th>
+                      <th>Szerkő</th>
+                      <th>Kiadás éve</th>
+                      <th></th>
+                  </tr>
+                  </thead>
+                  <tbody data-bind="foreach: books">
+                  <tr>
+                      <td data-bind="text: cim" ></td>
+                      <td data-bind="text: szerzo" ></td>
+                      <td data-bind="text: kiadasEve" ></td>
+                      <td><a href="#" data-bind="click: $root.addReserv">Kölcsönöz</a></td>
+                  </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+      <div class="form-group">
+          <label for="kivalasztott" class="col-sm-2 control-label">Kiválasztott könyvek</label>
+          <div class="col-md-5">
+              <table id="kivalasztott" class="table table-striped">
+                  <thead>
+                  <tr>
+                      <th>Cím</th>
+                      <th>Szerkő</th>
+                      <th>Kiadás éve</th>
+                      <th></th>
+                  </tr>
+                  </thead>
+                  <tbody data-bind="foreach: resBooks">
+                  <tr>
+                      <td data-bind="text: cim" ></td>
+                      <td data-bind="text: szerzo" ></td>
+                      <td data-bind="text: kiadasEve" ></td>
+                      <td><a href="#" data-bind="click: $root.removeReservedBook">Mégse</a></td>
+                  </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+
+      <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default">Mentés</button>
+          </div>
+      </div>
+  </form>
+  <script>
+      $('#visszaDatum').datepicker({
+          format: 'yyyy-mm-dd',
+          autoclose: true,
+          weekStart: 1,
+      });
+  </script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "name": "konyvtar",
+  "version": "1.0.0",
+  "description": "konyvtar kolcsonzes nyilvantarto",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/szamat/konyvkolcsonzes_nodejs.git"
+  },
+  "keywords": [
+    "konyvtar",
+    "szerveroldalijs",
+    "hazi"
+  ],
+  "author": "Mate Szadai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/szamat/konyvkolcsonzes_nodejs/issues"
+  },
+  "homepage": "https://github.com/szamat/konyvkolcsonzes_nodejs#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "bootstrap-datepicker": "^1.6.0",
+    "bootstrap-datetime-picker": "^2.3.9",
+    "express": "^4.13.4",
+    "foundation": "^4.2.1-1",
+    "jquery": "^2.2.1",
+    "knockout": "^3.4.0"
+  }
+}

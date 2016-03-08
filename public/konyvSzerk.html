@@ -1,0 +1,132 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Könyvkölcsönzést nyílvántartó oldal</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-datepicker.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap-datepicker.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/knockout-latest.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html
+                  ">Könyvkölcsönzés nyilvántartás</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">Kölcsönzés</a></li>
+                <li><a href="konyvVissza.html">Könyv visszavétele</a></li>
+                <li><a href="ujKonyv.html">Új könyv felvétele</a></li>
+                <li class="active"><a href="konyvSzerk.html">Könyvek szerkesztése</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="row">
+    <div class="large-12 columns">
+        <h1>Könyvek szerkesztése</h1>
+    </div>
+</div>
+<div class="row">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Cím</th>
+            <th>Szerző</th>
+            <th>Kiadás éve</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Nyolcvan nap alatt a Föld körül</td>
+            <td>Jules Verne</td>
+            <td>1873</td>
+            <td><a href="#" data-toggle="modal" data-target="#konyvSzerkModal">Módosít</a></td>
+            <td><a href="#">Töröl</a></td>
+        </tr>
+        <tr>
+            <td>A névtelen család</td>
+            <td>Jules Verne</td>
+            <td>1889</td>
+            <td><a href="#" data-toggle="modal" data-target="#konyvSzerkModal">Módosít</a></td>
+            <td><a href="#">Töröl</a></td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="konyvSzerkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Könyvek visszavétele</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="konyvCim" class="col-sm-2 control-label">Könyv címe</label>
+                        <div class="col-sm-10">
+                            <input name="konyvCim" id="konyvCim" type="text" class="form-control" placeholder="Nyolcvan nap alatt a Föld körül" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="konyvSzerzo" class="col-sm-2 control-label">Könyv szerzője</label>
+                        <div class="col-sm-10">
+                            <input name="konyvSzerzo" id="konyvSzerzo" type="text" class="form-control" placeholder="Jules Verne" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="kiadasEve" class="col-sm-2 control-label">Kiadás éve</label>
+                        <div class="col-sm-10">
+                            <input name="kiadasEve" id="kiadasEve" type="text" class="form-control" placeholder="1873" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mufaj" class="col-sm-2 control-label">Műfaj</label>
+                        <div class="col-md-10">
+                            <select name="mufaj" id="mufaj" class="form-control">
+                                <option>Kalandregény</option>
+                                <option>SciFi</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ismerteto" class="col-sm-2 control-label">Ismertető</label>
+                        <div class="col-sm-10">
+                            <textarea name="ismerteto" id="ismerteto" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default">Módosítás</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
