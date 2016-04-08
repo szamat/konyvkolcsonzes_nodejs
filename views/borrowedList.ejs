@@ -1,0 +1,112 @@
+<%- include('header') %>
+<div class="row">
+    <div class="large-12 columns">
+        <h1>Könyvek visszavétele</h1>
+    </div>
+</div>
+<div class="row">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Elvivő neve</th>
+            <th>Elérhetősége</th>
+            <th>Visszahozatal ideje</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for(var i=0; i<takens.length; i++) {%>
+        <tr>
+            <td><%= takens[i].neve %></td>
+            <td><%= takens[i].elerhetoseg %></td>
+            <td><%= takens[i].visszahozatal %></td>
+            <td><a class="btn btn-sm btn-default" href="#" onclick="handleBack(<%= takens[i].id %>)">Visszavesz</a></td>
+        </tr>
+        <% } %>
+
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="visszaveszModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Könyvek visszavétele</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="kolcsonzoNeve" class="col-sm-2 control-label">Kölcsönző neve</label>
+                        <div class="col-sm-10">
+                            <input data-bind="value: kolcsonzoNeve" name="kolcsonzoNeve" id="kolcsonzoNeve" type="text" class="form-control" value="Elvitt Elek" placeholder="Minta Béla" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="elerhetoseg" class="col-sm-2 control-label">Kölcsönző elérhetősége</label>
+                        <div class="col-sm-10">
+                            <input data-bind="value: elerhetoseg" name="elerhetoseg" id="elerhetoseg" type="text" class="form-control" value="+123456789" placeholder="hello@ittelersz.hu / +1231253423" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="visszaDatum" class="col-sm-2 control-label">Visszahozatal ideje</label>
+                        <div class="col-md-10">
+                            <input data-bind="value: visszaDatum" name="visszaDatum" id="visszaDatum" value="2016-10-20" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="valasztas" class="col-sm-2 control-label">Könyvek kiválasztása</label>
+                        <div class="col-md-10">
+                            <table id="valasztas" class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Cím</th>
+                                    <th>Szerkő</th>
+                                    <th>Kiadás éve</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody data-bind="foreach: resBooks">
+                                <tr>
+                                    <td data-bind="text: cim" ></td>
+                                    <td data-bind="text: szerzo" ></td>
+                                    <td data-bind="text: kiadasEve" ></td>
+                                    <td><a class="btn btn-sm btn-default" href="#" data-bind="click: $root.bookIsOk">Rendben</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">Mentés</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("li","ul.navbar-nav").each(
+            function(index,val){
+                $(val).removeClass('active');
+            }
+    );
+    $("#borrow").addClass("return");
+    $('#visszaDatum').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        weekStart: 1,
+    });
+    function handleBack(id){
+        // TODO - id <- ajax load
+        $('#visszaveszModal').modal('show');
+    }
+
+    //TODO - JS handle form submit
+
+</script>
+<%- include('footer') %>

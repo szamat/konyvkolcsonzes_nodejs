@@ -1,0 +1,95 @@
+<%- include('header') %>
+<div class="row">
+    <div class="large-12 columns">
+        <h1>Kölcsönzés</h1>
+    </div>
+</div>
+
+<form class="form-horizontal">
+    <div class="form-group">
+        <label for="kolcsonzoNeve" class="col-sm-2 control-label">Kölcsönző neve</label>
+        <div class="col-sm-5">
+            <input name="kolcsonzoNeve" id="kolcsonzoNeve" type="text" class="form-control" placeholder="Minta Béla" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="elerhetoseg" class="col-sm-2 control-label">Kölcsönző elérhetősége</label>
+        <div class="col-sm-5">
+            <input name="elerhetoseg" id="elerhetoseg" type="text" class="form-control" placeholder="hello@ittelersz.hu / +1231253423" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="visszaDatum" class="col-sm-2 control-label">Visszahozatal ideje</label>
+        <div class="col-md-5">
+            <input name="visszaDatum" id="visszaDatum" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="valasztas" class="col-sm-2 control-label">Könyvek kiválasztása</label>
+        <div class="col-md-5">
+            <!-- TODO -->
+            <table id="valasztas" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Cím</th>
+                    <th>Szerkő</th>
+                    <th>Kiadás éve</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody data-bind="foreach: books">
+                <tr>
+                    <td data-bind="text: cim" ></td>
+                    <td data-bind="text: szerzo" ></td>
+                    <td data-bind="text: kiadasEve" ></td>
+                    <td><a class="btn btn-sm btn-default" href="#" data-bind="click: $root.addReserv">Kölcsönöz</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="kivalasztott" class="col-sm-2 control-label">Kiválasztott könyvek</label>
+        <div class="col-md-5">
+            <table id="kivalasztott" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Cím</th>
+                    <th>Szerkő</th>
+                    <th>Kiadás éve</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody data-bind="foreach: resBooks">
+                <tr>
+                    <td data-bind="text: cim" ></td>
+                    <td data-bind="text: szerzo" ></td>
+                    <td data-bind="text: kiadasEve" ></td>
+                    <td><a class="btn btn-sm btn-warning" href="#" data-bind="click: $root.removeReservedBook">Mégse</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary">Mentés</button>
+        </div>
+    </div>
+</form>
+<script>
+    $("li","ul.navbar-nav").each(
+            function(index,val){
+                $(val).removeClass('active');
+            }
+    );
+    $("#borrow").addClass("active");
+
+    $('#visszaDatum').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        weekStart: 1,
+    });
+</script>
+<%- include('footer') %>

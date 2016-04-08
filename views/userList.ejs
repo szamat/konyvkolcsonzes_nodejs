@@ -1,0 +1,74 @@
+<%- include('header') %>
+<div class="row">
+    <h1>Felhasználók kezelése</h1>
+</div>
+<div class="row">
+    <button class="btn btn-primary" data-toggle="modal" data-target="#felhasznalo">Új felhasználó</button>
+</div>
+
+<div class="row">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Felhasználó neve</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for(var i=0; i<user.length; i++) {%>
+        <tr>
+            <td><%= takens[i].neve %></td>
+            <td><a class="btn btn-sm btn-default" href="#" data-toggle="modal" data-target="#felhasznalo">Módosít</a></td>
+        </tr>
+        <% } %>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="felhasznalo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalHeader">Új fehasználó / felhasználó szerkesztése</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="felhasznaloNev" class="col-sm-3 control-label">Felhasználónév</label>
+                        <div class="col-sm-6">
+                            <input name="felhasznaloNev" id="felhasznaloNev" type="text" class="form-control" value="Elvitt Elek" placeholder="Minta Béla" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="jelszo" class="col-sm-3 control-label">Jelszó</label>
+                        <div class="col-sm-6">
+                            <input name="jelszo" id="jelszo" type="password" class="form-control" value="+123456789" placeholder="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-6">
+                            <button type="submit" class="btn btn-primary">Hozzáad / módosít</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("li","ul.navbar-nav").each(
+            function(index,val){
+                $(val).removeClass('active');
+            }
+    );
+    $("#userEdit").addClass("return");
+    $('#visszaDatum').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        weekStart: 1,
+    });
+
+</script>
+<%- include('footer') %>

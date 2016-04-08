@@ -1,0 +1,105 @@
+<%- include('header') %>
+<div class="row">
+    <div class="large-12 columns">
+        <h1>Könyvek szerkesztése</h1>
+    </div>
+</div>
+<div class="row">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Cím</th>
+            <th>Szerző</th>
+            <th>Kiadás éve</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% for(var i=0; i<allBook.length; i++) {%>
+        <tr>
+            <td><%= allBook[i].cim %></td>
+            <td><%= allBook[i].szerzo %></td>
+            <td><%= allBook[i].kiadasEve %></td>
+            <td><a class="btn btn-sm btn-default" href="#" onclick="modifBook(<%=allBook[i].id%>)">Módosít</a></td>
+            <td><a class="btn btn-sm btn-danger" href="#" onclick="delBook(<%=allBook[i].id%>)">Töröl</a></td>
+        </tr>
+        <% { %>
+
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="konyvSzerkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Könyvek szerkesztése</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="konyvCim" class="col-sm-2 control-label">Könyv címe</label>
+                        <div class="col-sm-10">
+                            <input data-bind="value: konyvCim" name="konyvCim" id="konyvCim" type="text" class="form-control" placeholder="Nyolcvan nap alatt a Föld körül" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="konyvSzerzo" class="col-sm-2 control-label">Könyv szerzője</label>
+                        <div class="col-sm-10">
+                            <input data-bind="value: konyvSzerzo" name="konyvSzerzo" id="konyvSzerzo" type="text" class="form-control" placeholder="Jules Verne" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="kiadasEve" class="col-sm-2 control-label">Kiadás éve</label>
+                        <div class="col-sm-10">
+                            <input data-bind="value: kiadasEve" name="kiadasEve" id="kiadasEve" type="text" class="form-control" placeholder="1873" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mufaj" class="col-sm-2 control-label">Műfaj</label>
+                        <div class="col-md-10">
+                            <select name="mufaj" id="mufaj" class="form-control">
+                                <option>Kalandregény</option>
+                                <option>SciFi</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ismerteto" class="col-sm-2 control-label">Ismertető</label>
+                        <div class="col-sm-10">
+                            <textarea data-bind="text: ismerteto" name="ismerteto" id="ismerteto" class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">Módosítás</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("li","ul.navbar-nav").each(
+            function(index,val){
+                $(val).removeClass('active');
+            }
+    );
+    $("#borrow").addClass("editBook");
+
+    function modifBook(id){
+        //TODO - ajax load content
+        $('#konyvSzerkModal').modal.show();
+    }
+
+    function delBook(id) {
+        //TODO - send delete request
+    }
+
+</script>
+<%- include('footer') %>

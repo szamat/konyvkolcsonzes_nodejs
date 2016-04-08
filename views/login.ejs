@@ -1,0 +1,20 @@
+<%- include('header') %>
+<!-- start: content -->
+<div class="container" id="login">
+
+    <form class="form-signin" method="post" action="kolcsonzes.html">
+        <h2 class="form-signin-heading">Bejelenzketés</h2>
+        <label for="inputName" class="sr-only">Email address</label>
+        <input type="text" name="inputName" id="inputName" class="form-control" placeholder="Felhasználónév" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Jelszó" required>
+
+        <!--
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Bejelentkezés</button>
+        -->
+        <a href="kolcsonzes.html" class="btn btn-primary btn-lg btn-block">Bejelentkezés</a>
+    </form>
+
+</div>
+<!-- end: content -->
+<%- include('footer') %>

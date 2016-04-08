@@ -2,7 +2,7 @@ var authMW = require('../middleware/generic/auth');
 var userListMW = require('../middleware/user/getUserList');
 var deleteUserMW = require('../middleware/user/deleteUser');
 var updateUserMW = require('../middleware/user/updateUser');
-
+var renderMW = require('../middleware/generic/render');
 
 module.exports = function (app) {
 

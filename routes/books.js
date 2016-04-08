@@ -2,6 +2,8 @@ var authMW = require('../middleware/generic/auth');
 var bookListMW = require('../middleware/book/getBookList');
 var deleteBookMW = require('../middleware/book/bookDeleteById');
 var modifyBookMW = require('../middleware/book/saveOrUpdateBook');
+var renderMW = require('../middleware/generic/render');
+
 
 module.exports = function (app) {
 
