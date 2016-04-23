@@ -2,17 +2,18 @@
 <!-- start: content -->
 <div class="container" id="login">
 
-    <form class="form-signin" method="post" action="kolcsonzes.html">
+    <form class="form-signin" method="post">
         <h2 class="form-signin-heading">Bejelenzketés</h2>
-        <label for="inputName" class="sr-only">Email address</label>
-        <input type="text" name="inputName" id="inputName" class="form-control" placeholder="Felhasználónév" required autofocus>
+        <%- include('errorbox') %>
+        <label for="inputName" class="sr-only">Felhasználónév</label>
+        <input type="text" name="inputName" id="inputName" name ="inputName" class="form-control" placeholder="Felhasználónév" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Jelszó" required>
+        <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Jelszó" required>
 
-        <!--
+
         <button class="btn btn-lg btn-primary btn-block" type="submit">Bejelentkezés</button>
-        -->
-        <a href="kolcsonzes.html" class="btn btn-primary btn-lg btn-block">Bejelentkezés</a>
+
+        <a href="/register" class="btn btn-default btn-lg btn-block">Regisztráció</a>
     </form>
 
 </div>

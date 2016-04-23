@@ -22,13 +22,16 @@
   },
   "homepage": "https://github.com/szamat/konyvkolcsonzes_nodejs#readme",
   "dependencies": {
+    "body-parser": "^1.15.0",
     "bootstrap": "^3.3.6",
     "bootstrap-datepicker": "^1.6.0",
     "bootstrap-datetime-picker": "^2.3.9",
     "ejs": "^2.4.1",
     "express": "^4.13.4",
+    "express-session": "^1.13.0",
     "foundation": "^4.2.1-1",
     "jquery": "^2.2.1",
-    "knockout": "^3.4.0"
+    "knockout": "^3.4.0",
+    "mongoose": "^4.4.13"
   }
 }
