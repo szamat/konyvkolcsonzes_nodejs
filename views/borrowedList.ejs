@@ -16,14 +16,14 @@
         </tr>
         </thead>
         <tbody>
-        <% for(var i=0; i<takens.length; i++) {%>
+        <% borrowList.forEach(function(item){ %>
         <tr>
-            <td><%= takens[i].neve %></td>
-            <td><%= takens[i].elerhetoseg %></td>
-            <td><%= takens[i].visszahozatal %></td>
-            <td><a class="btn btn-sm btn-default" href="#" onclick="handleBack(<%= takens[i].id %>)">Visszavesz</a></td>
+            <td><%= item.name %></td>
+            <td><%= item.contact %></td>
+            <td><%= item.back %></td>
+            <td><a class="btn btn-sm btn-default" href="#" onclick="handleBack('<%= item._id %>')">Visszavesz</a></td>
         </tr>
-        <% } %>
+        <% }); %>
 
         </tbody>
     </table>
@@ -38,7 +38,8 @@
                 <h4 class="modal-title" id="myModalLabel">Könyvek visszavétele</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal">
+                <form class="form-horizontal" method="post" action="/borrow/back">
+                    <input type="hidden" name = "borrowId" id="borrowId" data-bind="value: id"/>
                     <div class="form-group">
                         <label for="kolcsonzoNeve" class="col-sm-2 control-label">Kölcsönző neve</label>
                         <div class="col-sm-10">
@@ -66,7 +67,6 @@
                                     <th>Cím</th>
                                     <th>Szerkő</th>
                                     <th>Kiadás éve</th>
-                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody data-bind="foreach: resBooks">
@@ -74,7 +74,6 @@
                                     <td data-bind="text: cim" ></td>
                                     <td data-bind="text: szerzo" ></td>
                                     <td data-bind="text: kiadasEve" ></td>
-                                    <td><a class="btn btn-sm btn-default" href="#" data-bind="click: $root.bookIsOk">Rendben</a></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -82,7 +81,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary">Mentés</button>
+                            <button type="submit" class="btn btn-primary">Visszavétel, minden rendben</button>
                         </div>
                     </div>
                 </form>
@@ -103,11 +102,29 @@
         weekStart: 1,
     });
     function handleBack(id){
-        // TODO - id <- ajax load
-        $('#visszaveszModal').modal('show');
+        $.ajax({
+            accepts: 'text/json',
+            contentType: 'text/json',
+            url: 'http://localhost:3000/ajax/borrow/'+id
+        }).done(function(data){
+            var borrowData = JSON.parse(data).borrow;
+            var takenBooks = JSON.parse(data).takenBook;
+            rentals.resetAll();
+            rentals.setDetails(borrowData._id, borrowData.name, borrowData.contact, borrowData.back);
+            $.each(takenBooks, function(count, item){
+                rentals.addResBook(item.bookId._id, item.bookId.title, item.bookId.author, item.bookId.published,item._id);
+            })
+
+            $('#visszaveszModal').modal('show');
+        }).error(function(error){
+            alert(error);
+        });
     }
 
-    //TODO - JS handle form submit
+    var rentals = new KoRentalBack();
+    $(document).ready(function(){
+        ko.applyBindings(rentals);
+    });
 
 </script>
 <%- include('footer') %>

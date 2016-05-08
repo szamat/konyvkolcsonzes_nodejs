@@ -10,7 +10,6 @@ module.exports = function (objectrepository) {
     var userModel = requireOption(objectrepository, 'userModel');
 
     return function (req, res, next) {
-
         //not enough parameter
         if ((typeof req.body === 'undefined') || (typeof req.body.inputName === 'undefined') ||
             (typeof req.body.inputPassword === 'undefined')) {

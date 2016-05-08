@@ -1,10 +1,10 @@
 /**
  * Rendering AJAX results
  */
-module.exports = function (objectrepository, viewName) {
+module.exports = function (objectrepository) {
 
     return function (req, res) {
-        res.end('Render: ' + JSON.stringify(objectrepository.result));
+        res.end(JSON.stringify(res.tpl));
         //res.render(viewName, res.tpl);
     };
 

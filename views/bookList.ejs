@@ -17,15 +17,15 @@
         </tr>
         </thead>
         <tbody>
-        <% for(var i=0; i<allBook.length; i++) {%>
+        <% allBooks.forEach(function(item){ %>
         <tr>
-            <td><%= allBook[i].cim %></td>
-            <td><%= allBook[i].szerzo %></td>
-            <td><%= allBook[i].kiadasEve %></td>
-            <td><a class="btn btn-sm btn-default" href="#" onclick="modifBook(<%=allBook[i].id%>)">Módosít</a></td>
-            <td><a class="btn btn-sm btn-danger" href="#" onclick="delBook(<%=allBook[i].id%>)">Töröl</a></td>
+            <td><%= item.title %></td>
+            <td><%= item.author %></td>
+            <td><%= item.published %></td>
+            <td><a class="btn btn-sm btn-default" href="#" onclick="modifBook('<%= item._id%>')">Módosít</a></td>
+            <td><a class="btn btn-sm btn-danger" href="/books/<%= item.id %>/delete">Töröl</a></td>
         </tr>
-        <% { %>
+        <% }); %>
 
         </tbody>
     </table>
@@ -40,7 +40,8 @@
                 <h4 class="modal-title" id="myModalLabel">Könyvek szerkesztése</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal">
+                <form class="form-horizontal" action="/books/save" method="post">
+                    <input type="hidden" name = "bookId" id="bookId" data-bind="value: id"/>
                     <div class="form-group">
                         <label for="konyvCim" class="col-sm-2 control-label">Könyv címe</label>
                         <div class="col-sm-10">
@@ -62,10 +63,11 @@
                     <div class="form-group">
                         <label for="mufaj" class="col-sm-2 control-label">Műfaj</label>
                         <div class="col-md-10">
-                            <select name="mufaj" id="mufaj" class="form-control">
-                                <option>Kalandregény</option>
-                                <option>SciFi</option>
-                            </select>
+                            <select data-bind="options: availableGenres, value: mufaj" name="mufaj" id="mufaj" class="form-control" ></select>
+                            <!--<select name="mufaj" id="mufaj" class="form-control" data-bind="selectedOptions: mufaj">-->
+                                <!--<option value="kaland">Kalandregény</option>-->
+                                <!--<option value="scifi">SciFi</option>-->
+                            <!--</select>-->
                         </div>
                     </div>
                     <div class="form-group">
@@ -94,13 +96,22 @@
     $("#borrow").addClass("editBook");
 
     function modifBook(id){
-        //TODO - ajax load content
-        $('#konyvSzerkModal').modal.show();
+        $.ajax({
+            accepts: 'text/json',
+            contentType: 'text/json',
+            url: 'http://localhost:3000/ajax/book/'+id
+        }).done(function(data){
+            var bookData = JSON.parse(data).book;
+            book.setBook(bookData._id, bookData.title, bookData.author, bookData.published, bookData.genre, bookData.detail);
+            $('#konyvSzerkModal').modal('show');
+        }).error(function(error){
+            alert(error);
+        });
     }
 
-    function delBook(id) {
-        //TODO - send delete request
-    }
-
+    var book = new KodDetailedBook();
+    $(document).ready(function(){
+        ko.applyBindings(book);
+    });
 </script>
 <%- include('footer') %>

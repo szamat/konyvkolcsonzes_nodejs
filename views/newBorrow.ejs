@@ -6,7 +6,7 @@
     </div>
 </div>
 
-<form class="form-horizontal">
+<form method="post" id="newBorrowForm" class="form-horizontal">
     <div class="form-group">
         <label for="kolcsonzoNeve" class="col-sm-2 control-label">Kölcsönző neve</label>
         <div class="col-sm-5">
@@ -92,5 +92,50 @@
         autoclose: true,
         weekStart: 1,
     });
+
+    var bookModelArr = new KoBookModel();
+    $(document).ready(function(){
+        ko.applyBindings(bookModelArr);
+        setupRentableBooks();
+    });
+    function setupRentableBooks(){
+        $.ajax({
+            contentType: 'text/json',
+            method: 'get',
+            accepts: 'text/json',
+            url: 'http://localhost:3000/ajax/getBorrowableBook'
+        }).done(function(data){
+            var books = JSON.parse(data);
+            $.each(books,function(index,val){
+                //    self.id = id; self.cim = cim; self.szerzo = szerzo; self.kiadasEve = kiadasEve;
+                bookModelArr.addBook(val._id,val.title, val.author, val.published);
+            });
+        }).error(function(){
+        });
+    }
+    $("#newBorrowForm").submit(function(form){
+        form.preventDefault();
+        $.ajax({
+            method: 'post',
+            url: 'http://localhost:3000/borrow/save',
+            data: {
+                kolcsonzoNeve: $("#kolcsonzoNeve").val(),
+                elerhetoseg: $("#elerhetoseg").val(),
+                visszaDatum: $("#visszaDatum").val(),
+                rentedBooks: bookModelArr.resBooksSerialize
+            }
+        }).done(function(message){
+            var mess = JSON.parse(message);
+            if(typeof mess.error !== 'undefined'){
+                alert(mess.error);
+            } else {
+                alert("Sikeres mentés!")
+                $("#newBorrowForm")[0].reset();
+                bookModelArr.reset();
+                setupRentableBooks();
+            }
+        });
+    })
+//    resBooks
 </script>
 <%- include('footer') %>

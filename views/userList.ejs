@@ -3,9 +3,6 @@
 <div class="row">
     <h1>Felhasználók kezelése</h1>
 </div>
-<div class="row">
-    <button class="btn btn-primary" data-toggle="modal" data-target="#felhasznalo">Új felhasználó</button>
-</div>
 
 <div class="row">
     <table class="table table-striped">
@@ -16,12 +13,12 @@
         </tr>
         </thead>
         <tbody>
-        <% for(var i=0; i<user.length; i++) {%>
+        <% allUser.forEach(function(item){ %>
         <tr>
-            <td><%= takens[i].neve %></td>
-            <td><a class="btn btn-sm btn-default" href="#" data-toggle="modal" data-target="#felhasznalo">Módosít</a></td>
+            <td><%= item.name %></td>
+            <td><a class="btn btn-sm btn-default" href="#" onclick="modifUser('<%= item._id %>')">Módosít</a></td>
         </tr>
-        <% } %>
+        <% }); %>
         </tbody>
     </table>
 </div>
@@ -35,17 +32,18 @@
                 <h4 class="modal-title" id="modalHeader">Új fehasználó / felhasználó szerkesztése</h4>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal">
+                <form class="form-horizontal" method="post" action="/users/save">
+                    <input type="hidden" name = "userId" id="userId" data-bind="value: id"/>
                     <div class="form-group">
-                        <label for="felhasznaloNev" class="col-sm-3 control-label">Felhasználónév</label>
+                        <label for="name" class="col-sm-3 control-label">Felhasználónév</label>
                         <div class="col-sm-6">
-                            <input name="felhasznaloNev" id="felhasznaloNev" type="text" class="form-control" value="Elvitt Elek" placeholder="Minta Béla" />
+                            <input data-bind="value: name" name="name" id="name" type="text" class="form-control" placeholder="Minta Béla" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="jelszo" class="col-sm-3 control-label">Jelszó</label>
+                        <label for="password" class="col-sm-3 control-label">Jelszó</label>
                         <div class="col-sm-6">
-                            <input name="jelszo" id="jelszo" type="password" class="form-control" value="+123456789" placeholder="" />
+                            <input data-bind="value: password" name="password" id="password" type="password" class="form-control"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -71,5 +69,23 @@
         weekStart: 1,
     });
 
+    function modifUser(id){
+        $.ajax({
+            accepts: 'text/json',
+            contentType: 'text/json',
+            url: 'http://localhost:3000/ajax/user/'+id
+        }).done(function(data){
+            var userData = JSON.parse(data).user;
+            user.setUser(userData._id, userData.name, userData.password);
+            $('#felhasznalo').modal('show');
+        }).error(function(error){
+            alert(error);
+        });
+    }
+
+    var user = new KoUser();
+    $(document).ready(function(){
+        ko.applyBindings(user);
+    });
 </script>
 <%- include('footer') %>

@@ -5,39 +5,39 @@
         <h1>Új könyv felvétele</h1>
     </div>
 </div>
-
-<form class="form-horizontal">
+<%- include('errorbox') %>
+<form class="form-horizontal" method="post">
     <div class="form-group">
         <label for="konyvCim" class="col-sm-2 control-label">Könyv címe</label>
         <div class="col-sm-10">
-            <input name="konyvCim" id="konyvCim" type="text" class="form-control" placeholder="Nyolcvan nap alatt a Föld körül" />
+            <input name="konyvCim" id="konyvCim" name="konyvCim" type="text" class="form-control" placeholder="Nyolcvan nap alatt a Föld körül" />
         </div>
     </div>
     <div class="form-group">
         <label for="konyvSzerzo" class="col-sm-2 control-label">Könyv szerzője</label>
         <div class="col-sm-10">
-            <input name="konyvSzerzo" id="konyvSzerzo" type="text" class="form-control" placeholder="Jules Verne" />
+            <input name="konyvSzerzo" id="konyvSzerzo" name = "konyvSzerzo" type="text" class="form-control" placeholder="Jules Verne" />
         </div>
     </div>
     <div class="form-group">
         <label for="kiadasEve" class="col-sm-2 control-label">Kiadás éve</label>
         <div class="col-sm-10">
-            <input name="kiadasEve" id="kiadasEve" type="text" class="form-control" placeholder="1873" />
+            <input name="kiadasEve" id="kiadasEve" name ="kiadasEve" type="text" class="form-control" placeholder="1873" />
         </div>
     </div>
     <div class="form-group">
         <label for="mufaj" class="col-sm-2 control-label">Műfaj</label>
         <div class="col-md-10">
-            <select name="mufaj" id="mufaj" class="form-control">
-                <option>Kalandregény</option>
-                <option>SciFi</option>
+            <select name="mufaj" id="mufaj" name="mufaj" class="form-control">
+                <option value="Kalandregény">Kalandregény</option>
+                <option value="SciFi">SciFi</option>
             </select>
         </div>
     </div>
     <div class="form-group">
         <label for="ismerteto" class="col-sm-2 control-label">Ismertető</label>
         <div class="col-sm-10">
-            <textarea name="ismerteto" id="ismerteto" class="form-control"></textarea>
+            <textarea name="ismerteto" id="ismerteto" name="ismerteto" class="form-control"></textarea>
         </div>
     </div>
 

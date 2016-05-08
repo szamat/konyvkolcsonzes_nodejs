@@ -1,12 +1,18 @@
 var authMW = require('../middleware/generic/auth');
 var userListMW = require('../middleware/user/getUserList');
 var deleteUserMW = require('../middleware/user/deleteUser');
-var updateUserMW = require('../middleware/user/updateUser');
+var updateUserMW = require('../middleware/user/saveUser');
 var renderMW = require('../middleware/generic/render');
+var getUserDetails = require('../middleware/user/getUserById');
+var ajaxRenderMW = require('../middleware/generic/ajaxRenderer');
+
+var userModel = require("../models/user");
 
 module.exports = function (app) {
 
-    var objectRepository = {};
+    var objectRepository = {
+        userModel: userModel
+    };
 
     app.use('/users',
         authMW(objectRepository)
@@ -24,16 +30,11 @@ module.exports = function (app) {
      * Delete user
      */
     app.use('/users/:id/delete',
+        getUserDetails(objectRepository),
         deleteUserMW(objectRepository),
-        renderMW(objectRepository, 'userList')
-    );
-
-    /**
-     * Modify user
-     */
-    app.use('/users/:id/save',
-        updateUserMW(objectRepository),
-        renderMW(objectRepository, 'userList')
+        function (req, res, next) {
+            return res.redirect('/users/list');
+        }
     );
 
     /**
@@ -41,6 +42,16 @@ module.exports = function (app) {
      */
     app.use('/users/save',
         updateUserMW(objectRepository),
+        userListMW(objectRepository),
         renderMW(objectRepository, 'userList')
+    );
+
+
+    /**
+     * Ger user by Id
+     */
+    app.use('/ajax/user/:id',
+        getUserDetails(objectRepository),
+        ajaxRenderMW(objectRepository)
     );
 };
