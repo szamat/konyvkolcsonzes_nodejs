@@ -7,7 +7,7 @@ module.exports = function (objectrepository) {
     return function (req, res, next) {
         bookModel.find({}).exec(function(error,book) {
             if (error) {
-                return next();
+                return next(error);
             }
             res.tpl.allBooks = book;
             return next();
